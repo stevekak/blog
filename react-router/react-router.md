@@ -15,7 +15,7 @@
     </Switch>
   </BrowserRouter>
 ```
-##### Router组件 -- 路由监听器
+#### Router组件 -- 路由监听器
 
 通过[BrowserRouter](https://github.com/ReactTraining/react-router/blob/v5.1.2/packages/react-router-dom/modules/BrowserRouter.js)的代码可以看到它做的事情很简单，只是创建了history并通过props传递给了[Router](https://github.com/ReactTraining/react-router/blob/v5.1.2/packages/react-router/modules/Router.js)组件。
 
@@ -89,7 +89,7 @@ class Router extends React.Component {
   }
 }
 ```
-##### Switch && Route -- 渲染页面
+#### Switch && Route -- 渲染页面
 
 在[Switch](https://github.com/ReactTraining/react-router/blob/v5.1.2/packages/react-router/modules/Switch.js)组件中，会通过React.Children.forEach对子组件进行了遍历，根据child元素的path或from与当前history的路由做对比，当第一次匹配成功后，通过 ==React.cloneElement== 返回一个当前元素的拷贝。
 
@@ -97,7 +97,7 @@ class Router extends React.Component {
 
 当命中了Redirect时，先根据props找到重定向对应的路由再根据props.push去判断使用history.push 还是history.replace方法去刷新路由，因为路由发生了变化，会触发context的更新，又会重新计算一遍上述流程
 
-##### 总结
+#### 总结
 
 React-Router整个的实现流程其实很简单，只是通过Context做了一个全局的状态管理，但是里边有一些函数和组件设计的十分巧妙，值得借鉴。 
 
