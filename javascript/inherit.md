@@ -5,7 +5,9 @@
 - ```基本思想```：利用原型让一个引用类型继承另一个引用类型的属性和方法。
 - ```构造函数、原型和实例的关系```：每一个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针；
 - ```原型链```：让原型对象等于另一个类型的实例，此时的原型对象将包含一个指向另一个原型的指针，相应地，另一个原型中也包含着一个指向另一个构造函数的指针，假如另一个原型又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条。这就是所谓的原型链。
-```javascript
+
+
+``` javascript
 function A (){ // 构造函数
     this.a = ['1','2'];
 } 
@@ -35,6 +37,7 @@ var b = new B(); // 此时 b可以访问b.__proto__（B.prototype和B构造函�
 var c = new B();
 b.a.push('3');
 c.a // ['1','2','3']
+
 ```
 
 - ```原型链继承的问题```： 
@@ -45,7 +48,8 @@ c.a // ['1','2','3']
 ## 2. 借用构造函数法
 - ```基本思想```：在子类型构造函数中，通过call、apply方法调用超类型构造函数
 
-```javascript
+
+``` javascript
 function SuperType () {
     this.colors = ['red','blue','green']; 
 }
@@ -69,6 +73,9 @@ var instance2 = new SubType();
 instance2.colors.push('black'); //['red','blue','green','black'];
 
 ```
+
+
+
 - ```借用构造函数的问题```:
     1. 因为所有属性和方法都在构造函数中定义,函数的复用就无法实现(每创建一个对象就要重新声名函数)
     2. 在超类型中定义的方法对于子类而言是不可见的,结果所有类型都只能使用构造函数模式(```没明白```)
@@ -77,7 +84,9 @@ instance2.colors.push('black'); //['red','blue','green','black'];
 ## 3. 组合继承(伪经典继承)
 
 - ```基本思想```：使用原型链实现对原型属性和方法的继承，通过构造函数来实现对实例属性的继承
-```javascript
+
+
+``` javascript
 function SuperType (name) {
     this.name = name;
     this.colors = ['red','blue','green'];
@@ -109,13 +118,16 @@ console.log(instance.colors);
 console.log(instance.__proto__.colors);
 
 ```
+
+
 - ```存在问题```：无论在什么情况下都会调用超类型两次构造函数
 
 
 ## 原型式继承
 - ```基本思想```：借助原型可以基于已有的对象创建新的对象，同时还不必因此而创建自定义类型。
 
-```javascript
+
+``` javascript
 function object ( o ) { // Object.create
     function F(){};
     F.prototype = o;
@@ -137,13 +149,17 @@ instance1.friends.push('d');
 console.log(SuperType.friends) // ['a','b','c','d']
 
 ```
+
+
 - 原型式继承的问题
     1. 引用类型的属性在所有实例中都是共享的
 
 ## 5. 寄生式继承
 - ```基本思想```：创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后在返回该对象
 - ```使用场景```：在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式。
-```javascript
+
+
+``` javascript
 function object ( o ) { // Object.create
     function F(){};
     F.prototype = o;
@@ -163,7 +179,7 @@ function createAnother (original) {
 ## 6. 寄生组合式继承
 - ```基本思想```：不必为了指定子类型的原型而调用超类型的构造函数，只需要将超类型原型的副本赋值给子类型的原型；
 
-```javascript
+``` javascript
 
 function inheritPrototype (subType,superType){
     var prototype = Object.create(superType); // 创建超类的副本
@@ -193,7 +209,3 @@ SubType.prototype.sayAge = function () {
 
 
 ```
-
-
-
-#### 未完待续。。。
